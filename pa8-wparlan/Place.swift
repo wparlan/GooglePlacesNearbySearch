@@ -8,9 +8,9 @@
 import Foundation
 
 struct Place{
-    var id: String
     var name: String
+    var id: String
     var vicinity: String
-    var rating: String
+    var rating: Int
     var photoReference: String
 }
