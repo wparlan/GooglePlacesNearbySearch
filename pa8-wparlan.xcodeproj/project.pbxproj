@@ -14,6 +14,8 @@
 		8CD85B21258208CF00DFD0E0 /* pa8_wparlan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8CD85B1F258208CF00DFD0E0 /* pa8_wparlan.xcdatamodeld */; };
 		8CD85B23258208D100DFD0E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CD85B22258208D100DFD0E0 /* Assets.xcassets */; };
 		8CD85B26258208D100DFD0E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CD85B24258208D100DFD0E0 /* LaunchScreen.storyboard */; };
+		8CD85B2F258208F500DFD0E0 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD85B2E258208F500DFD0E0 /* Place.swift */; };
+		8CD85B3225820A3F00DFD0E0 /* PlacesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD85B3125820A3F00DFD0E0 /* PlacesAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		8CD85B22258208D100DFD0E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8CD85B25258208D100DFD0E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8CD85B27258208D100DFD0E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8CD85B2E258208F500DFD0E0 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		8CD85B3125820A3F00DFD0E0 /* PlacesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,8 @@
 				8CD85B24258208D100DFD0E0 /* LaunchScreen.storyboard */,
 				8CD85B27258208D100DFD0E0 /* Info.plist */,
 				8CD85B1F258208CF00DFD0E0 /* pa8_wparlan.xcdatamodeld */,
+				8CD85B2E258208F500DFD0E0 /* Place.swift */,
+				8CD85B3125820A3F00DFD0E0 /* PlacesAPI.swift */,
 			);
 			path = "pa8-wparlan";
 			sourceTree = "<group>";
@@ -144,6 +150,8 @@
 				8CD85B21258208CF00DFD0E0 /* pa8_wparlan.xcdatamodeld in Sources */,
 				8CD85B17258208CF00DFD0E0 /* AppDelegate.swift in Sources */,
 				8CD85B19258208CF00DFD0E0 /* SceneDelegate.swift in Sources */,
+				8CD85B3225820A3F00DFD0E0 /* PlacesAPI.swift in Sources */,
+				8CD85B2F258208F500DFD0E0 /* Place.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
