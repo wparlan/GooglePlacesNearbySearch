@@ -33,7 +33,6 @@ struct PlacesAPI {
         var components = URLComponents(string: placeBaseURL)!
         components.queryItems = queryItems
         let url = components.url!
-        print(url)
         return url
     }
     
@@ -52,7 +51,6 @@ struct PlacesAPI {
         var components = URLComponents(string: detailBaseURL)!
         components.queryItems = queryItems
         let url = components.url!
-        print(url)
         return url
     }
     
@@ -72,7 +70,6 @@ struct PlacesAPI {
         var components = URLComponents(string: photoBaseURL)!
         components.queryItems = queryItems
         let url = components.url!
-        print(url)
         return url
     }
     
@@ -82,9 +79,8 @@ struct PlacesAPI {
     static func placeSearch(withCoordinates coordinates:String, withKeyword keyword:String, completion: @escaping ([Place]?) -> Void){
         let url = placeSeachURL(withCoordinates: coordinates, withKeyword: keyword)
         let task = URLSession.shared.dataTask(with: url){ (dataOptional, urlResponseOptional, errorOptional) in
-            if let data = dataOptional, let dataString = String(data: data, encoding: .utf8){
+            if let data = dataOptional{
                 print("Data recieved holy molyeye ewe didi itt")
-                //print(dataString)
                 if let places: [Place] = decodePlace(fromData: data){
                     print("we got place array")
                     DispatchQueue.main.async {
@@ -114,8 +110,7 @@ struct PlacesAPI {
         let url = detailURL(ID: place.id)
         let task = URLSession.shared.dataTask(with: url){ (dataOptional, urlResponseOptional, errorOptional) in
             if let data = dataOptional, let dataString = String(data: data, encoding: .utf8){
-                print("Data recieved holy molyeye ewe didi itt, but for details")
-                print(dataString)
+                //print("Data recieved holy molyeye ewe didi itt, but for details")
                 if let details: Place = addDetails(forPlace: place, fromData: data){
                     print("We got a rating")
                     DispatchQueue.main.async {
@@ -145,7 +140,6 @@ struct PlacesAPI {
         let task = URLSession.shared.dataTask(with: url){ (dataOptional, urlResponseOptional, errorOptional) in
             if let data = dataOptional, let dataString = String(data: data, encoding: .utf8){
                 print("Data recieved holy molyeye ewe didi itt, but for details")
-                print(dataString)
                 if let image: UIImage = UIImage(data: data){
                     print("We got an image")
                     DispatchQueue.main.async {
@@ -209,14 +203,15 @@ struct PlacesAPI {
         return returnValue
     }
     
+    // TODO: Fix parsing eror, seems to be error getting rating
     static func addDetails(forPlace place: Place, fromData data:Data) -> Place?{
         do {
             let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
-            guard let jsonDictionary = jsonObject as? [String: Any], let detailArray = jsonDictionary["results"] as? [String: Any] else{
+            guard let jsonDictionary = jsonObject as? [String: Any], let detailArray = jsonDictionary["result"] as? [String: Any] else{
                 print("error getting details")
                 return nil
             }
-            guard let rating = detailArray["rating"] as? Int else{
+            guard let rating = detailArray["rating"] as? Float else{
                 print("error getting rating")
                 return nil
             }

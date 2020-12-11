@@ -27,9 +27,12 @@ class PlaceTableViewController: UITableViewController, CLLocationManagerDelegate
         PlacesAPI.placeSearch(withCoordinates: coordinates, withKeyword: keyword, completion: { (placesOptional) in
             if let places = placesOptional{
                 print("In table vs, we got the data")
-                for place in places{
-                    PlacesAPI.detailSearch(forPlace: place, completion: {(updatedPlace) in print("details quireied")})
-                    PlacesAPI.photoSearch(withReference: place.photoReference, completion: {(photoOptional) in print("photo quereied")})
+                for var place in places{
+                    PlacesAPI.detailSearch(forPlace: place, completion: {(updateOptional) in
+                        if let updatedPlace = updateOptional{
+                            place = updatedPlace
+                        }
+                    })
                 }
                 self.places = places
                 self.tableView.reloadData()
@@ -45,7 +48,7 @@ class PlaceTableViewController: UITableViewController, CLLocationManagerDelegate
         let place = places[row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceCell", for: indexPath)
 
-        cell.textLabel?.text = place.name
+        cell.textLabel?.text = "\(place.name) (\(place.rating)⭐️)"
         cell.detailTextLabel?.text = place.vicinity
         cell.showsReorderControl = true
         return cell
