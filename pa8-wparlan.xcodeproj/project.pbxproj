@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C5C612B25837A4F00140A2D /* PlaceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5C612A25837A4F00140A2D /* PlaceTableViewController.swift */; };
+		8C5C612E25837A6000140A2D /* PlaceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5C612D25837A6000140A2D /* PlaceDetailViewController.swift */; };
 		8CD85B17258208CF00DFD0E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD85B16258208CF00DFD0E0 /* AppDelegate.swift */; };
 		8CD85B19258208CF00DFD0E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD85B18258208CF00DFD0E0 /* SceneDelegate.swift */; };
-		8CD85B1B258208CF00DFD0E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD85B1A258208CF00DFD0E0 /* ViewController.swift */; };
 		8CD85B1E258208CF00DFD0E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CD85B1C258208CF00DFD0E0 /* Main.storyboard */; };
-		8CD85B21258208CF00DFD0E0 /* pa8_wparlan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8CD85B1F258208CF00DFD0E0 /* pa8_wparlan.xcdatamodeld */; };
 		8CD85B23258208D100DFD0E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CD85B22258208D100DFD0E0 /* Assets.xcassets */; };
 		8CD85B26258208D100DFD0E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CD85B24258208D100DFD0E0 /* LaunchScreen.storyboard */; };
 		8CD85B2F258208F500DFD0E0 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD85B2E258208F500DFD0E0 /* Place.swift */; };
@@ -19,12 +19,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C5C612A25837A4F00140A2D /* PlaceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTableViewController.swift; sourceTree = "<group>"; };
+		8C5C612D25837A6000140A2D /* PlaceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewController.swift; sourceTree = "<group>"; };
 		8CD85B13258208CF00DFD0E0 /* pa8-wparlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "pa8-wparlan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CD85B16258208CF00DFD0E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CD85B18258208CF00DFD0E0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8CD85B1A258208CF00DFD0E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8CD85B1D258208CF00DFD0E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8CD85B20258208CF00DFD0E0 /* pa8_wparlan.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = pa8_wparlan.xcdatamodel; sourceTree = "<group>"; };
 		8CD85B22258208D100DFD0E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8CD85B25258208D100DFD0E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8CD85B27258208D100DFD0E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -62,16 +62,16 @@
 		8CD85B15258208CF00DFD0E0 /* pa8-wparlan */ = {
 			isa = PBXGroup;
 			children = (
+				8CD85B2E258208F500DFD0E0 /* Place.swift */,
+				8CD85B3125820A3F00DFD0E0 /* PlacesAPI.swift */,
+				8C5C612A25837A4F00140A2D /* PlaceTableViewController.swift */,
+				8C5C612D25837A6000140A2D /* PlaceDetailViewController.swift */,
 				8CD85B16258208CF00DFD0E0 /* AppDelegate.swift */,
 				8CD85B18258208CF00DFD0E0 /* SceneDelegate.swift */,
-				8CD85B1A258208CF00DFD0E0 /* ViewController.swift */,
 				8CD85B1C258208CF00DFD0E0 /* Main.storyboard */,
 				8CD85B22258208D100DFD0E0 /* Assets.xcassets */,
 				8CD85B24258208D100DFD0E0 /* LaunchScreen.storyboard */,
 				8CD85B27258208D100DFD0E0 /* Info.plist */,
-				8CD85B1F258208CF00DFD0E0 /* pa8_wparlan.xcdatamodeld */,
-				8CD85B2E258208F500DFD0E0 /* Place.swift */,
-				8CD85B3125820A3F00DFD0E0 /* PlacesAPI.swift */,
 			);
 			path = "pa8-wparlan";
 			sourceTree = "<group>";
@@ -146,10 +146,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CD85B1B258208CF00DFD0E0 /* ViewController.swift in Sources */,
-				8CD85B21258208CF00DFD0E0 /* pa8_wparlan.xcdatamodeld in Sources */,
 				8CD85B17258208CF00DFD0E0 /* AppDelegate.swift in Sources */,
 				8CD85B19258208CF00DFD0E0 /* SceneDelegate.swift in Sources */,
+				8C5C612B25837A4F00140A2D /* PlaceTableViewController.swift in Sources */,
+				8C5C612E25837A6000140A2D /* PlaceDetailViewController.swift in Sources */,
 				8CD85B3225820A3F00DFD0E0 /* PlacesAPI.swift in Sources */,
 				8CD85B2F258208F500DFD0E0 /* Place.swift in Sources */,
 			);
@@ -351,19 +351,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		8CD85B1F258208CF00DFD0E0 /* pa8_wparlan.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				8CD85B20258208CF00DFD0E0 /* pa8_wparlan.xcdatamodel */,
-			);
-			currentVersion = 8CD85B20258208CF00DFD0E0 /* pa8_wparlan.xcdatamodel */;
-			path = pa8_wparlan.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 8CD85B0B258208CF00DFD0E0 /* Project object */;
 }

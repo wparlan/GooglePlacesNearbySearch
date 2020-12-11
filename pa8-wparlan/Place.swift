@@ -8,9 +8,16 @@
 import Foundation
 
 struct Place{
+    // required by project
     var name: String
     var id: String
     var vicinity: String
     var rating: Int
     var photoReference: String
+    
+    //additional
+    var address: String
+    var review: String
+    var phone: String
+    var open: Bool
 }
