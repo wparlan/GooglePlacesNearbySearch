@@ -11,16 +11,15 @@ import UIKit
 // TODO: find and add the photo information and the rating information
 struct PlacesAPI {
     static let apiKey = "AIzaSyChyWD9EbgNopC_ecgLrA--91VDh6BCwOs"
-    static let placeBaseURL = "https://maps.googleapis.com/maps/api/place/nearbysearch"
-    static let detailBaseURL = "https://maps.googleapis.com/maps/api/place/details"
-    static let photoBaseURL = "https://maps.googleapis.com/maps/api/place/photo?"
+    static let placeBaseURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+    static let detailBaseURL = "https://maps.googleapis.com/maps/api/place/details/json"
+    static let photoBaseURL = "https://maps.googleapis.com/maps/api/place/photo?/"
     
     //MARK:- URL Buliding Functions
     // builds url to be used for init place search
     static func placeSeachURL(withCoordinates coords: String, withKeyword keyword: String) -> URL{
         // start with parameters for query
         let params = [
-            "output": "json",
             "key": PlacesAPI.apiKey,
             "location": coords,
             "keyword": keyword,
@@ -42,7 +41,6 @@ struct PlacesAPI {
     static func detailURL(ID: String) -> URL{
         // start with parameters for query
         let params = [
-            "output": "json",
             "key": PlacesAPI.apiKey,
             "place_id": ID
         ]
@@ -86,7 +84,7 @@ struct PlacesAPI {
         let task = URLSession.shared.dataTask(with: url){ (dataOptional, urlResponseOptional, errorOptional) in
             if let data = dataOptional, let dataString = String(data: data, encoding: .utf8){
                 print("Data recieved holy molyeye ewe didi itt")
-                print(dataString)
+                //print(dataString)
                 if let places: [Place] = decodePlace(fromData: data){
                     print("we got place array")
                     DispatchQueue.main.async {
