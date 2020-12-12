@@ -16,9 +16,12 @@
 		8CD85B26258208D100DFD0E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CD85B24258208D100DFD0E0 /* LaunchScreen.storyboard */; };
 		8CD85B2F258208F500DFD0E0 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD85B2E258208F500DFD0E0 /* Place.swift */; };
 		8CD85B3225820A3F00DFD0E0 /* PlacesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD85B3125820A3F00DFD0E0 /* PlacesAPI.swift */; };
+		DC465FB71615E9924B25A00F /* Pods_pa8_wparlan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 897B0F0B6EB23191A6D6D76D /* Pods_pa8_wparlan.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2539E1374DA040AE23092693 /* Pods-pa8-wparlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pa8-wparlan.release.xcconfig"; path = "Target Support Files/Pods-pa8-wparlan/Pods-pa8-wparlan.release.xcconfig"; sourceTree = "<group>"; };
+		897B0F0B6EB23191A6D6D76D /* Pods_pa8_wparlan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pa8_wparlan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C5C612A25837A4F00140A2D /* PlaceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTableViewController.swift; sourceTree = "<group>"; };
 		8C5C612D25837A6000140A2D /* PlaceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewController.swift; sourceTree = "<group>"; };
 		8CD85B13258208CF00DFD0E0 /* pa8-wparlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "pa8-wparlan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,6 +33,7 @@
 		8CD85B27258208D100DFD0E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CD85B2E258208F500DFD0E0 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		8CD85B3125820A3F00DFD0E0 /* PlacesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesAPI.swift; sourceTree = "<group>"; };
+		EEBE3A820A7C2FE89DAB611E /* Pods-pa8-wparlan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pa8-wparlan.debug.xcconfig"; path = "Target Support Files/Pods-pa8-wparlan/Pods-pa8-wparlan.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,17 +41,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC465FB71615E9924B25A00F /* Pods_pa8_wparlan.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2133AA526528CECE21ABBFEB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EEBE3A820A7C2FE89DAB611E /* Pods-pa8-wparlan.debug.xcconfig */,
+				2539E1374DA040AE23092693 /* Pods-pa8-wparlan.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		8CD85B0A258208CF00DFD0E0 = {
 			isa = PBXGroup;
 			children = (
 				8CD85B15258208CF00DFD0E0 /* pa8-wparlan */,
 				8CD85B14258208CF00DFD0E0 /* Products */,
+				2133AA526528CECE21ABBFEB /* Pods */,
+				ECEE160715BEDE5AC53D650C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +93,14 @@
 			path = "pa8-wparlan";
 			sourceTree = "<group>";
 		};
+		ECEE160715BEDE5AC53D650C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				897B0F0B6EB23191A6D6D76D /* Pods_pa8_wparlan.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -83,9 +108,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8CD85B2A258208D100DFD0E0 /* Build configuration list for PBXNativeTarget "pa8-wparlan" */;
 			buildPhases = (
+				070532D0207D1ADF0E0BD500 /* [CP] Check Pods Manifest.lock */,
 				8CD85B0F258208CF00DFD0E0 /* Sources */,
 				8CD85B10258208CF00DFD0E0 /* Frameworks */,
 				8CD85B11258208CF00DFD0E0 /* Resources */,
+				9E1C52473760541955CB48E7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -140,6 +167,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		070532D0207D1ADF0E0BD500 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-pa8-wparlan-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9E1C52473760541955CB48E7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-pa8-wparlan/Pods-pa8-wparlan-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-pa8-wparlan/Pods-pa8-wparlan-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-pa8-wparlan/Pods-pa8-wparlan-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8CD85B0F258208CF00DFD0E0 /* Sources */ = {
@@ -295,11 +364,14 @@
 		};
 		8CD85B2B258208D100DFD0E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EEBE3A820A7C2FE89DAB611E /* Pods-pa8-wparlan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MRAJJ787YZ;
 				INFOPLIST_FILE = "pa8-wparlan/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -313,11 +385,14 @@
 		};
 		8CD85B2C258208D100DFD0E0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2539E1374DA040AE23092693 /* Pods-pa8-wparlan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MRAJJ787YZ;
 				INFOPLIST_FILE = "pa8-wparlan/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

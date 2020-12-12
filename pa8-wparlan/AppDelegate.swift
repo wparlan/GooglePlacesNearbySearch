@@ -1,8 +1,14 @@
 //
 //  AppDelegate.swift
 //  pa8-wparlan
+//  This file holds AppDelegate and its implemenation *UNMODIFIED FOR THIS PROJECT*
+//  CPSC 315-01, Fall 2020
+//  Programming Assignment #8
+//  No sources to site
+//  Greeley worked on cocoaPods and main.storyboard and debugging
+//  William worked on APIs and PlaceTableViewController and PlaceDetailViewController
 //
-//  Created by Parlan, William C on 12/9/20.
+//  Created by Parlan, William C and Lindberg, Greeley B on 12/11/20.
 //
 
 import UIKit

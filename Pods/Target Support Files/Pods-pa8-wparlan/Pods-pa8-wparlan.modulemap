@@ -1,0 +1,6 @@
+framework module Pods_pa8_wparlan {
+  umbrella header "Pods-pa8-wparlan-umbrella.h"
+
+  export *
+  module * { export * }
+}

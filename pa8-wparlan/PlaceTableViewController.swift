@@ -1,22 +1,34 @@
 //
 //  PlaceTableViewController.swift
 //  pa8-wparlan
+//  This file holds the TableViewController that displays the results from a placeSearch
+//  CPSC 315-01, Fall 2020
+//  Programming Assignment #8
+//  No sources to site
+//  Greeley worked on cocoaPods and main.storyboard and debugging
+//  William worked on APIs and PlaceTableViewController and PlaceDetailViewController
 //
-//  Created by Parlan, William C on 12/11/20.
+//  Created by Parlan, William C and Lindberg, Greeley B on 12/11/20.
 //
 
 import UIKit
 import CoreLocation
+import MBProgressHUD
 
+// Table View Controller for Search Results Display
 class PlaceTableViewController: UITableViewController, CLLocationManagerDelegate {
     //MARK: - Private Variables
     var places = [Place]()
     var coordinates: String = ""
     let locationManager = CLLocationManager()
     
-    // MARK: - Main Methods
+    // MARK: - API Methods
     
-    // TODO: Resolve issue with table not updating appropriately
+    /**
+     This function updates local places array with data from Google Places API
+     - Parameter withKeyword: Keyword for search
+     - Returns: Void
+     */
     func fetchPlaces(withKeyword keyword: String){
         guard self.coordinates != "" else{
             print("No coordinates provided")
@@ -27,9 +39,9 @@ class PlaceTableViewController: UITableViewController, CLLocationManagerDelegate
             return
         }
         places.removeAll()
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         PlacesAPI.placeSearch(withCoordinates: coordinates, withKeyword: keyword, completion: { (placesOptional) in
             if let placeArray = placesOptional{
-                print("In table vc, we got the data")
                 for place in placeArray{
                     PlacesAPI.detailSearch(forPlace: place, completion: {(updateOptional) in
                         if let updatedPlace = updateOptional{
@@ -39,11 +51,13 @@ class PlaceTableViewController: UITableViewController, CLLocationManagerDelegate
                     })
                 }
             }
-            // MARK: - Progress bar cocoa pod goes here
-//            self.tableView.reloadData()
+            MBProgressHUD.hide(for: self.view, animated: true)
         })
 
     }
+    // MARK: - Table View Methods
+    
+    // This methods updates the table view cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row  = indexPath.row
         let place = places[row]
@@ -59,6 +73,8 @@ class PlaceTableViewController: UITableViewController, CLLocationManagerDelegate
         cell.showsReorderControl = true
         return cell
     }
+    
+    // this method returns section number
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{
             return places.count
@@ -67,19 +83,22 @@ class PlaceTableViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     //MARK: - CL Methods
+    
+    //Use this method to update Coordinates whenever location changes
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(locations)
         let location = locations[locations.count-1]
         coordinates = String(location.coordinate.latitude)+","+String(location.coordinate.longitude)
-        print(coordinates)
     }
+    
+    //Use this method to print error value
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failure! \(error)")
     }
     
     
     
-    
+    // MARK: - Segue Methods
+    // transfers the current selected place to the detailVC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier{
             if identifier == "DetailSegue"{
@@ -93,66 +112,64 @@ class PlaceTableViewController: UITableViewController, CLLocationManagerDelegate
         }
     }
     //MARK: - IBACtion Methods
+    
+    /**
+     Updates location when the user presses button
+     - Parameter sender: The UIButton that sent the signal
+     - Returns Void
+     */
     @IBAction func refreshPressed(_ sender: Any) {
-        //Do core location stuff here (grab core location and use that as curr location)
-        print("refresh pressed, cl updated")
         locationManager.requestLocation()
     }
     
-    
-    
-    
+    // MARK: - viewDidLoad
+    // added CL permissions and init location fetch
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         if CLLocationManager.locationServicesEnabled(){
-            print("CL enabled")
+            print("CoreLocation enabled")
             locationManager.delegate = self
             locationManager.requestWhenInUseAuthorization()
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.requestLocation()
-            print("View Did load finished")
         }
         else{
-            print("CL disabled")
+            print("CoreLocation disabled")
+        }
+    }
+}
+
+// MARK: - Search Bar Extension
+extension PlaceTableViewController: UISearchBarDelegate{
+    // When user presses search, fetch places with keyword in search field
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let searchText = searchBar.text{
+            if searchText != "" {
+                fetchPlaces(withKeyword: searchText)
+            }
+            else{
+                places.removeAll()
+                tableView.reloadData()
+            }
         }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
-
-extension PlaceTableViewController: UISearchBarDelegate{
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
-        if searchText != "" {
-            performSearch(searchBar: searchBar)
-        }
-        else{
-            places.removeAll()
-            tableView.reloadData()
-        }
-    }
-    func performSearch(searchBar: UISearchBar){
-        if let text = searchBar.text{
-            print(text)
-            places.removeAll()
-            fetchPlaces(withKeyword: text)
-            tableView.reloadData()
-        }
-    }
+    // Clear search, drop keyboard, clear places array, refresh
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = nil
         searchBar.resignFirstResponder()
         places.removeAll()
         tableView.reloadData()
+    }
+    
+    // If the user hits the x button, it clears the text. If text is cleared, resign and empty table
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == ""{
+            searchBar.text = nil
+            searchBar.resignFirstResponder()
+            places.removeAll()
+            tableView.reloadData()
+        }
     }
 }

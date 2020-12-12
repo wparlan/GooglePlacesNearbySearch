@@ -1,22 +1,34 @@
 //
 //  PlacesAPI.swift
 //  pa8-wparlan
+//  This file holds the functions to request data from the Google Places API and decode its return
+//  CPSC 315-01, Fall 2020
+//  Programming Assignment #8
+//  No sources to site
+//  Greeley worked on cocoaPods and main.storyboard and debugging
+//  William worked on APIs and PlaceTableViewController and PlaceDetailViewController
 //
-//  Created by Parlan, William C on 12/9/20.
+//  Created by Parlan, William C and Lindberg, Greeley B on 12/11/20.
 //
 
 import Foundation
 import UIKit
 
-// TODO: find and add the photo information and the rating information
 struct PlacesAPI {
+    // MARK: - Private Variables
     static let apiKey = "AIzaSyChyWD9EbgNopC_ecgLrA--91VDh6BCwOs"
     static let placeBaseURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
     static let detailBaseURL = "https://maps.googleapis.com/maps/api/place/details/json"
     static let photoBaseURL = "https://maps.googleapis.com/maps/api/place/photo?/"
     
     //MARK:- URL Buliding Functions
-    // builds url to be used for init place search
+    /**
+     Builds URL to use for placeSearch()
+     - Parameters:
+        - withCoordinates: String containing "lat,long" for location to search
+        - withKeyword: String containing keyword to search
+     - Returns: URL for placeSearch()
+     */
     static func placeSeachURL(withCoordinates coords: String, withKeyword keyword: String) -> URL{
         // start with parameters for query
         let params = [
@@ -36,7 +48,11 @@ struct PlacesAPI {
         return url
     }
     
-    //build url to request details
+    /**
+     Builds URL to be used for detailSearch()
+     - Parameter ID: place_id to be used for search
+     - Returns: URL for detailSearch()
+     */
     static func detailURL(ID: String) -> URL{
         // start with parameters for query
         let params = [
@@ -54,7 +70,11 @@ struct PlacesAPI {
         return url
     }
     
-    //build url to request photo
+    /**
+     Builds URL to search for photoSearch()
+     - Parameter withReference: String identifier of photo to retrieve
+     - Returns: URL for photoSearch()
+     */
     static func photoURL(withReference reference: String) -> URL{
         // start with parameters for query
         let params = [
@@ -75,107 +95,142 @@ struct PlacesAPI {
     
     // MARK: - Query Functions
 
-    // This function fetches the place's name, place_id, and vicinity
+    /**
+     Requests data from Google Places API via a Nearby Search Request, then parses it
+     - Parameters:
+        - withCoordinates: String containing "lat,long" to be used for search
+        - withKeyword: String containing keyword to search
+        - completion: Closure to execute after data is recieved
+     - Returns: Optional place array from completion closure
+     */
     static func placeSearch(withCoordinates coordinates:String, withKeyword keyword:String, completion: @escaping ([Place]?) -> Void){
         let url = placeSeachURL(withCoordinates: coordinates, withKeyword: keyword)
         let task = URLSession.shared.dataTask(with: url){ (dataOptional, urlResponseOptional, errorOptional) in
             if let data = dataOptional{
-                print("Data recieved holy molyeye ewe didi itt")
+                // Data recieved
                 if let places: [Place] = decodePlace(fromData: data){
-                    print("we got place array")
+                    // If successfully decoded, return it in closure
                     DispatchQueue.main.async {
                         completion(places)
                     }
                     
                 }
                 else{
+                    // If failed to decode, return nil in closure
                     DispatchQueue.main.async{
                         completion(nil)
                     }
                 }
             }
             else{
+                // Data retrieval failed
                 if let error = errorOptional{
-                    print("Error gettign the Daata \(error)")
+                    print("Error getting basic data \(error)")
                 }
                 DispatchQueue.main.async{
                     completion(nil)
                 }
             }
         }
+        // start the URLSessionTask
         task.resume()
     }
     
-    static func detailSearch(forPlace place: Place, completion: @escaping (Place?) -> Void){
+    /**
+     Requests data from Google Places API via a Place Details Request, then parses it
+     - Parameters:
+        - forPlace: String containing place_id to be used for search
+        - completion: Closure to execute after data is recieved
+     - Returns: Optional place from completion closure
+     */    static func detailSearch(forPlace place: Place, completion: @escaping (Place?) -> Void){
         let url = detailURL(ID: place.id)
         let task = URLSession.shared.dataTask(with: url){ (dataOptional, urlResponseOptional, errorOptional) in
-            if let data = dataOptional, let dataString = String(data: data, encoding: .utf8){
-                //print("Data recieved holy molyeye ewe didi itt, but for details")
-                //print(dataString)
+            if let data = dataOptional{
+                // data recieved succesfully
                 if let details: Place = addDetails(forPlace: place, fromData: data){
-                    print("We got some details")
+                    // data parsed successfully and returned in closure
                     DispatchQueue.main.async {
                         completion(details)
                     }
                 }
                 else{
+                    // failed to parse data, return nil
                     DispatchQueue.main.async{
                         completion(nil)
                     }
                 }
             }
             else{
+                // failed to retrieve data
                 if let error = errorOptional{
-                    print("error getting the details \(error)")
+                    print("Error getting the details \(error)")
                     DispatchQueue.main.async{
                         completion(nil)
                     }
                 }
             }
         }
+        // start the URLSessionTask
         task.resume()
     }
     
+    /**
+     Requests data from Google Places API via a Place Photo Request
+     - Parameters:
+        - withReference: String containing unique photo_reference to be used for search
+        - completion: Closure to execute after data is recieved
+     - Returns: Optional UIImage from completion closure
+     */
     static func photoSearch(withReference reference: String, completion: @escaping (UIImage?) -> Void){
         let url = photoURL(withReference: reference)
         let task = URLSession.shared.dataTask(with: url){ (dataOptional, urlResponseOptional, errorOptional) in
             if let data = dataOptional{
-                print("Photo data rcecived")
+                // data recieved
                 if let image: UIImage = UIImage(data: data){
-                    print("We got an image")
+                    // data parsed successfully
                     DispatchQueue.main.async {
                         completion(image)
                     }
                 }
                 else{
+                    // failed to parse data
                     DispatchQueue.main.async{
                         completion(nil)
                     }
                 }
             }
             else{
+                // failed to get data
                 if let error = errorOptional{
-                    print("error getting the rating \(error)")
+                    print("Error getting the photo \(error)")
                     DispatchQueue.main.async{
                         completion(nil)
                     }
                 }
             }
         }
+        // start URLSessionDataTask
         task.resume()
     }
     
     //MARK: - Decoding Functions
-    // this function decodes data into json (DOES NOT DECODE RATING INFO)
+
+    /**
+     Converts data into JSON object, then parses into new Place object
+     - Parameter fromData: data object to be converted
+     - Returns: Optional Array of Place objects
+     */
     static func decodePlace(fromData data: Data) -> [Place]?{
         do {
             let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
             guard let jsonDictionary = jsonObject as? [String: Any], let placeArray = jsonDictionary["results"] as? [[String: Any]] else{
-                print("Error getting basic search")
+                // Error getting basic search results
                 return nil
             }
-            print("we got results")
+            //successfully got basic search data
+            
             var places = [Place]()
+            // fill array with decoded places
             for placeObject in placeArray{
                 if let place = place(fromJson: placeObject){
                     places.append(place)
@@ -186,25 +241,39 @@ struct PlacesAPI {
             }
         }
         catch{
-            print("Error converting data tot json \(error)")
+            // failed to convert data to JSON
+            print("Error converting data to JSON \(error)")
         }
         return nil
     }
     
     
-    //Function builds a new place obj out of the place search json
+    /**
+     Builds a new Place object out of given JSON object
+     - Parameter fromJson: JSON object to be parsed
+     - Returns: Place if JSON is parsed correctly or nil otherwise
+     */
     static func place(fromJson json: [String: Any]) -> Place?{
+        // main parsing guard
         guard let name = json["name"] as? String, let id = json["place_id"] as? String, let vicinity = json["vicinity"] as? String, let openStatus = json["opening_hours"] as? [String: Any], let open = openStatus["open_now"] as? Bool else {
             return nil
         }
+        // put data into new object
         var returnValue: Place = Place(name: name, id: id, vicinity: vicinity, rating: "N/A", photoReference: "No photo reference available", address: "No address available", review: "No reviews available", phone: "No phone num available", open: open)
+        // if location has picture, add it. otherwise ignore
         if let photoInformation = json["photos"] as? [[String: Any]], let photoRef = photoInformation.first?["photo_reference"] as? String{
             returnValue.photoReference = photoRef
         }
         return returnValue
     }
     
-    // TODO: Fix parsing eror, seems to be error getting rating
+    /**
+     Parses JSON from detailSeach() and returns a new Place with more information
+     - Parameters:
+        - forPlace: Place object that is going to updated with details
+        - fromData: Data object to be decoded into JSON
+     - Returns: Place if JSON is parsed correctly or nil otherwise
+     */
     static func addDetails(forPlace place: Place, fromData data:Data) -> Place?{
         do {
             let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
@@ -212,27 +281,21 @@ struct PlacesAPI {
             var address = "No Address Available"
             var phone = "No Phone Number Available"
             var review = "No Review Available"
-            print("(\(place.name))")
             if let jsonDictionary = jsonObject as? [String: Any], let detailArray = jsonDictionary["result"] as? [String: Any] {
-                print("details recieved")
+                // Below are individual if lets because not all locations have every field
                 if let ratingTest = detailArray["rating"] as? Double {
-                    print("rating get")
                     rating = String(ratingTest)
                 }
                 if let addressTest = detailArray["formatted_address"] as? String {
-                    print("address get")
                     address = addressTest
                 }
                 if let phoneTest = detailArray["formatted_phone_number"] as? String {
-                    print("phone num get")
                     phone = phoneTest
                 }
                 if let reviews = detailArray["reviews"] as? [[String:Any]], let reviewTest = reviews.first?["text"] as? String {
-                    print("review get")
                     review = reviewTest
                 }
                 let returnval = Place(name: place.name, id: place.id, vicinity: place.vicinity, rating: rating, photoReference: place.photoReference, address: address, review: review, phone: phone, open: place.open)
-                //print(returnval)
                 return returnval
             }
             return nil
