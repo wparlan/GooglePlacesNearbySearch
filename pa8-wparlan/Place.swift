@@ -12,7 +12,7 @@ struct Place{
     var name: String
     var id: String
     var vicinity: String
-    var rating: Float
+    var rating: String
     var photoReference: String
     
     //additional

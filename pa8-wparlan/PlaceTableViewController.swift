@@ -15,40 +15,46 @@ class PlaceTableViewController: UITableViewController, CLLocationManagerDelegate
     let locationManager = CLLocationManager()
     
     // MARK: - Main Methods
+    
+    // TODO: Resolve issue with table not updating appropriately
     func fetchPlaces(withKeyword keyword: String){
         guard self.coordinates != "" else{
-            print("no keyword or coordinates present")
+            print("No coordinates provided")
             return
         }
         guard keyword != "" else{
-            print("no kewyord")
+            print("No kewyord provided")
             return
         }
+        places.removeAll()
         PlacesAPI.placeSearch(withCoordinates: coordinates, withKeyword: keyword, completion: { (placesOptional) in
-            if let places = placesOptional{
-                print("In table vs, we got the data")
-                for var place in places{
+            if let placeArray = placesOptional{
+                print("In table vc, we got the data")
+                for place in placeArray{
                     PlacesAPI.detailSearch(forPlace: place, completion: {(updateOptional) in
                         if let updatedPlace = updateOptional{
-                            place = updatedPlace
+                            self.places.append(updatedPlace)
                         }
+                        self.tableView.reloadData()
                     })
                 }
-                self.places = places
-                self.tableView.reloadData()
-                print(self.places.count)
-                print(self.places[0].name,self.places[0].rating)
             }
             // MARK: - Progress bar cocoa pod goes here
-            
+//            self.tableView.reloadData()
         })
+
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row  = indexPath.row
         let place = places[row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceCell", for: indexPath)
 
-        cell.textLabel?.text = "\(place.name) (\(place.rating)⭐️)"
+        if (place.rating == "N/A"){
+            cell.textLabel?.text = "\(place.name) (No Rating)"
+        }
+        else{
+            cell.textLabel?.text = "\(place.name) (\(place.rating)⭐️)"
+        }
         cell.detailTextLabel?.text = place.vicinity
         cell.showsReorderControl = true
         return cell
@@ -72,6 +78,20 @@ class PlaceTableViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier{
+            if identifier == "DetailSegue"{
+                if let destinationVC = segue.destination as? PlaceDetailViewController{
+                    if let indexPath = tableView.indexPathForSelectedRow{
+                        let place = places[indexPath.row]
+                        destinationVC.placeOptional = place
+                    }
+                }
+            }
+        }
+    }
     //MARK: - IBACtion Methods
     @IBAction func refreshPressed(_ sender: Any) {
         //Do core location stuff here (grab core location and use that as curr location)
@@ -117,18 +137,22 @@ extension PlaceTableViewController: UISearchBarDelegate{
             performSearch(searchBar: searchBar)
         }
         else{
-            searchBar.resignFirstResponder()
             places.removeAll()
+            tableView.reloadData()
         }
     }
     func performSearch(searchBar: UISearchBar){
         if let text = searchBar.text{
             print(text)
+            places.removeAll()
             fetchPlaces(withKeyword: text)
+            tableView.reloadData()
         }
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = nil
         searchBar.resignFirstResponder()
+        places.removeAll()
+        tableView.reloadData()
     }
 }
