@@ -16,9 +16,20 @@ import UIKit
 
 struct PlacesAPI {
     // MARK: - Private Variables
-    static let apiKey = "AIzaSyChyWD9EbgNopC_ecgLrA--91VDh6BCwOs"
-    static let placeBaseURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
-    static let detailBaseURL = "https://maps.googleapis.com/maps/api/place/details/json"
+    static var apiKey: String{
+        get{
+            guard let filePath = Bundle.main.path(forResource: "GooglePlaces-Info", ofType: "plist") else {
+                fatalError("Could not find file 'GooglePlaces-Info.plist'.")
+            }
+            let plist = NSDictionary(contentsOfFile: filePath)
+            guard let value = plist?.object(forKey:"API_KEY") as? String else{
+                fatalError("Could not find key 'API_KEY' in 'TMDB-Info.plist'.")
+            }
+            return value
+        }
+    }
+    static let placeBaseURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
+    static let detailBaseURL = "https://maps.googleapis.com/maps/api/place/details/json?"
     static let photoBaseURL = "https://maps.googleapis.com/maps/api/place/photo?/"
     
     //MARK:- URL Buliding Functions
@@ -110,6 +121,7 @@ struct PlacesAPI {
                 // Data recieved
                 if let places: [Place] = decodePlace(fromData: data){
                     // If successfully decoded, return it in closure
+                    print("Basic place search returned place data.")
                     DispatchQueue.main.async {
                         completion(places)
                     }
@@ -117,6 +129,7 @@ struct PlacesAPI {
                 }
                 else{
                     // If failed to decode, return nil in closure
+                    print("Basic place search failed.")
                     DispatchQueue.main.async{
                         completion(nil)
                     }
@@ -149,12 +162,14 @@ struct PlacesAPI {
                 // data recieved succesfully
                 if let details: Place = addDetails(forPlace: place, fromData: data){
                     // data parsed successfully and returned in closure
+                    // print("Detail place search returned detail data.")
                     DispatchQueue.main.async {
                         completion(details)
                     }
                 }
                 else{
                     // failed to parse data, return nil
+                    print("Detail place search failed.")
                     DispatchQueue.main.async{
                         completion(nil)
                     }
@@ -188,12 +203,14 @@ struct PlacesAPI {
                 // data recieved
                 if let image: UIImage = UIImage(data: data){
                     // data parsed successfully
+                    print("Photo search returned photo data.")
                     DispatchQueue.main.async {
                         completion(image)
                     }
                 }
                 else{
                     // failed to parse data
+                    print("Photo search failed.")
                     DispatchQueue.main.async{
                         completion(nil)
                     }
@@ -224,11 +241,10 @@ struct PlacesAPI {
         do {
             let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
             guard let jsonDictionary = jsonObject as? [String: Any], let placeArray = jsonDictionary["results"] as? [[String: Any]] else{
-                // Error getting basic search results
-                return nil
+                    // Error getting basic search results
+                    return nil
             }
             //successfully got basic search data
-            
             var places = [Place]()
             // fill array with decoded places
             for placeObject in placeArray{

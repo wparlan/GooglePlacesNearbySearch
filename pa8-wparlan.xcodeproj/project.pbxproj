@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		164147A4259A57DE00C1D4C7 /* GooglePlaces-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 164147A3259A57DE00C1D4C7 /* GooglePlaces-Info.plist */; };
 		8C5C612B25837A4F00140A2D /* PlaceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5C612A25837A4F00140A2D /* PlaceTableViewController.swift */; };
 		8C5C612E25837A6000140A2D /* PlaceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5C612D25837A6000140A2D /* PlaceDetailViewController.swift */; };
 		8CD85B17258208CF00DFD0E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD85B16258208CF00DFD0E0 /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		164147A3259A57DE00C1D4C7 /* GooglePlaces-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GooglePlaces-Info.plist"; sourceTree = "<group>"; };
 		2539E1374DA040AE23092693 /* Pods-pa8-wparlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pa8-wparlan.release.xcconfig"; path = "Target Support Files/Pods-pa8-wparlan/Pods-pa8-wparlan.release.xcconfig"; sourceTree = "<group>"; };
 		897B0F0B6EB23191A6D6D76D /* Pods_pa8_wparlan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pa8_wparlan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C5C612A25837A4F00140A2D /* PlaceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTableViewController.swift; sourceTree = "<group>"; };
@@ -54,7 +56,6 @@
 				EEBE3A820A7C2FE89DAB611E /* Pods-pa8-wparlan.debug.xcconfig */,
 				2539E1374DA040AE23092693 /* Pods-pa8-wparlan.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -89,6 +90,7 @@
 				8CD85B22258208D100DFD0E0 /* Assets.xcassets */,
 				8CD85B24258208D100DFD0E0 /* LaunchScreen.storyboard */,
 				8CD85B27258208D100DFD0E0 /* Info.plist */,
+				164147A3259A57DE00C1D4C7 /* GooglePlaces-Info.plist */,
 			);
 			path = "pa8-wparlan";
 			sourceTree = "<group>";
@@ -163,6 +165,7 @@
 				8CD85B26258208D100DFD0E0 /* LaunchScreen.storyboard in Resources */,
 				8CD85B23258208D100DFD0E0 /* Assets.xcassets in Resources */,
 				8CD85B1E258208CF00DFD0E0 /* Main.storyboard in Resources */,
+				164147A4259A57DE00C1D4C7 /* GooglePlaces-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
